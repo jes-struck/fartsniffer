@@ -2,6 +2,8 @@
 
 import bme680
 import time
+from event import Event as event
+from event import EventType as etype
 
 print("""Estimate indoor air quality
 Runs the sensor for a burn-in period, then uses a
@@ -12,6 +14,7 @@ Press Ctrl+C to exit
 
 sensor = bme680.BME680()
 DEBUG=False
+EVENT=True
 # These oversampling settings can be tweaked to
 # change the balance between accuracy and noise in
 # the data.
@@ -63,44 +66,36 @@ try:
     print("Gas baseline: {0} Ohms, humidity baseline: {1:.2f} %RH\n".format(gas_baseline, hum_baseline))
 
     while True:
-        print ("Getting get_sensor_data: ({0})".format(sensor.get_sensor_data()))
-        print ("Getting sensor.data: ({0})".format(sensor.data))
-        print ("\tGetting status: ({0})".format(sensor.data.status))            #data.status
-        print ("\tGetting gas_index: ({0})".format(sensor.data.gas_index)) #gas_index
-        print ("\tGetting meas_index: ({0})".format(sensor.data.meas_index)) #meas_index
-        print ("\tGetting temperature: ({0})".format(sensor.data.temperature)) #temperature
-        print ("\tGetting pressure: ({0})".format(sensor.data.pressure)) #pressure
-        print ("\tGetting humidity: ({0})".format(sensor.data.humidity)) #humidity
-        print ("\tGetting gas_resistance: ({0})".format(sensor.data.gas_resistance)) #gas_resistance
-        print()
-        print("DONE...")
-        print()
-
         if sensor.get_sensor_data() and sensor.data.heat_stable:
-            gas = sensor.data.gas_resistance
-            gas_offset = gas_baseline - gas
+            gas_threshold = [400000, 500000]
+            if EVENT:
+                if (gas_threshold[0] <= gas_resistance <= gas_threshold[1]):
+                    event.triger(sensor.data, etype.GAS)
 
-            hum = sensor.data.humidity
-            hum_offset = hum - hum_baseline
-
-            # Calculate hum_score as the distance from the hum_baseline.
-            if hum_offset > 0:
-                hum_score = (100 - hum_baseline - hum_offset) / (100 - hum_baseline) * (hum_weighting * 100)
-
-            else:
-                hum_score = (hum_baseline + hum_offset) / hum_baseline * (hum_weighting * 100)
-
-            # Calculate gas_score as the distance from the gas_baseline.
-            if gas_offset > 0:
-                gas_score = (gas / gas_baseline) * (100 - (hum_weighting * 100))
-
-            else:
-                gas_score = 100 - (hum_weighting * 100)
-
-            # Calculate air_quality_score.
-            air_quality_score = hum_score + gas_score
-
-            print("Gas: {0:.2f} Ohms,humidity: {1:.2f} %RH,air quality: {2:.2f}".format(gas, hum, air_quality_score))
+            # gas = sensor.data.gas_resistance
+            # gas_offset = gas_baseline - gas
+            #
+            # hum = sensor.data.humidity
+            # hum_offset = hum - hum_baseline
+            #
+            # # Calculate hum_score as the distance from the hum_baseline.
+            # if hum_offset > 0:
+            #     hum_score = (100 - hum_baseline - hum_offset) / (100 - hum_baseline) * (hum_weighting * 100)
+            #
+            # else:
+            #     hum_score = (hum_baseline + hum_offset) / hum_baseline * (hum_weighting * 100)
+            #
+            # # Calculate gas_score as the distance from the gas_baseline.
+            # if gas_offset > 0:
+            #     gas_score = (gas / gas_baseline) * (100 - (hum_weighting * 100))
+            #
+            # else:
+            #     gas_score = 100 - (hum_weighting * 100)
+            #
+            # # Calculate air_quality_score.
+            # air_quality_score = hum_score + gas_score
+            #
+            # print("Gas: {0:.2f} Ohms,humidity: {1:.2f} %RH,air quality: {2:.2f}".format(gas, hum, air_quality_score))
             time.sleep(1)
 
 except KeyboardInterrupt:
