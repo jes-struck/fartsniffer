@@ -70,12 +70,20 @@ try:
     while True:
         if sensor.get_sensor_data() and sensor.data.heat_stable:
             if EVENT:
+                if(DEBUG):
+                    print("[DEBUG] gas: {0} ".format(sensor.data.gas_resistance))
+                    print("[DEBUG] humidity: {0} ".format(sensor.data.humidity))
+                    print("[DEBUG] temp: {0} ".format(sensor.data.temperature))
                 if (sensor.data.gas_resistance >= threshold.gas):
                     event.trigger(sensor.data, etype.GAS)
                 if (sensor.data.humidity >= threshold.humidity):
                     event.trigger(sensor.data, etype.HUMIDITY)
                 if not (threshold.temperature[0] <= sensor.data.temperature <= threshold.temperature[1]):
                     event.trigger(sensor.data, etype.TEMPERATURE)
+
+                print()
+                print("DONE...")
+                print()
             time.sleep(1)
 
 except KeyboardInterrupt:
