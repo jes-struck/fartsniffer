@@ -38,4 +38,4 @@ class Event(object):
 class Threshold(object):
     gas = 350000
     humidity = 50
-    temperature = 24
+    temperature = [18,24]

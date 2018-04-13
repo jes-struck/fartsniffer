@@ -69,11 +69,11 @@ try:
     while True:
         if sensor.get_sensor_data() and sensor.data.heat_stable:
             if EVENT:
-                if not (threshold.gas[0] <= sensor.data.gas_resistance <= threshold.gas[1]):
+                if (sensor.data.gas_resistance >= threshold.gas):
                     event.trigger(sensor.data, etype.GAS)
                 if (sensor.data.humidity >= threshold.humidity):
                     event.trigger(sensor.data, etype.HUMIDITY)
-                if(sensor.data.temperature > threshold.temperature ):
+                if not (threshold.temperature[0] <= sensor.data.temperature <= threshold.temperature[1]):
                     event.trigger(sensor.data, etype.TEMPERATURE)
             time.sleep(1)
 
