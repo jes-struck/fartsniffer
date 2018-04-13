@@ -18,8 +18,3 @@ class Event(object):
         print()
         print("DONE...")
         print()
-
-    """docstring for [object Object]."""
-    def __init__(self, arg):
-        super([object Object], self).__init__()
-        self.arg = arg
