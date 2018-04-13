@@ -68,9 +68,9 @@ try:
 
     while True:
         if sensor.get_sensor_data() and sensor.data.heat_stable:
-            client.metrics('gas', {'threshold': Threshold.gas, 'measure': sensor.data.gas_resistance}, tags=tags )
-            client.metrics('humidity', {'threshold': Threshold.humidity, 'measure': sensor.data.humidity}, tags=tags )
-            client.metrics('temperature', {'threshold': Threshold.temperature, 'measure': sensor.data.temperature}, tags=tags )
+            client.metric('gas', {'threshold': Threshold.gas, 'measure': sensor.data.gas_resistance}, tags=tags )
+            client.metric('humidity', {'threshold': Threshold.humidity, 'measure': sensor.data.humidity}, tags=tags )
+            client.metric('temperature', {'threshold': Threshold.temperature, 'measure': sensor.data.temperature}, tags=tags )
             if (sensor.data.gas_resistance >= threshold.gas):
                 event.trigger(sensor.data, etype.GAS)
             if (sensor.data.humidity >= threshold.humidity):
