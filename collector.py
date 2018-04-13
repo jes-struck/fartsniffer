@@ -46,7 +46,7 @@ try:
     # Collect gas resistance burn-in values, then use the average
     # of the last 50 values to set the upper limit for calculating
     # gas_baseline.
-    print("Collecting gas resistance burn-in data for {0} mins\n".format(burn_in_time/60))
+    print("Collecting gas resistance burn-in data for {0:.2f} mins\n".format(burn_in_time/60))
     while curr_time - start_time < burn_in_time:
         curr_time = time.time()
         if sensor.get_sensor_data() and sensor.data.heat_stable:
@@ -68,9 +68,9 @@ try:
 
     while True:
         if sensor.get_sensor_data() and sensor.data.heat_stable:
-            client.metric('gas', {'threshold': Threshold.gas, 'measure': sensor.data.gas_resistance}, tags=tags )
-            client.metric('humidity', {'threshold': Threshold.humidity, 'measure': sensor.data.humidity}, tags=tags )
-            client.metric('temperature', {'threshold': Threshold.temperature, 'measure': sensor.data.temperature}, tags=tags )
+            client.metric('gas', {'threshold': threshold.gas, 'measure': sensor.data.gas_resistance}, tags=tags )
+            client.metric('humidity', {'threshold': threshold.humidity, 'measure': sensor.data.humidity}, tags=tags )
+            client.metric('temperature', {'threshold': threshold.temperature, 'measure': sensor.data.temperature}, tags=tags )
             if (sensor.data.gas_resistance >= threshold.gas):
                 event.trigger(sensor.data, etype.GAS)
             if (sensor.data.humidity >= threshold.humidity):
