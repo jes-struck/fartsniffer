@@ -6,7 +6,7 @@ class EventType(Enum):
 
 class Event(object):
 
-    def trigger(date, type):
+    def trigger(data, type):
         slef.data = data
         print ("\tGetting status: ({0})".format(data.status))            #data.status
         print ("\tGetting gas_index: ({0})".format(data.gas_index)) #gas_index

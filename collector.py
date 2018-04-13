@@ -35,7 +35,7 @@ sensor.select_gas_heater_profile(0)
 start_time = time.time()
 curr_time = time.time()
 if (DEBUG):
-    burn_in_time=50
+    burn_in_time=20
 else:
     burn_in_time = 300
 
