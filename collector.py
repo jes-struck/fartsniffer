@@ -65,7 +65,16 @@ try:
     while True:
         print ("Getting get_sensor_data: ({0})".format(sensor.get_sensor_data()))
         print ("Getting sensor.data: ({0})".format(sensor.data))
-        print ("Getting heat:({0})".format(sensor.data.heat_stable))
+        print ("\tGetting status: ({0})".format(sensor.data.status))            #data.status
+        print ("\tGetting gas_index: ({0})".format(sensor.data.gas_index)) #gas_index
+        print ("\tGetting meas_index: ({0})".format(sensor.data.meas_index)) #meas_index
+        print ("\tGetting temperature: ({0})".format(sensor.data.temperature)) #temperature
+        print ("\tGetting pressure: ({0})".format(sensor.data.pressure)) #pressure
+        print ("\tGetting humidity: ({0})".format(sensor.data.humidity)) #humidity
+        print ("\tGetting gas_resistance: ({0})".format(sensor.data.gas_resistance)) #gas_resistance
+        print()
+        print("DONE...")
+        print()
 
         if sensor.get_sensor_data() and sensor.data.heat_stable:
             gas = sensor.data.gas_resistance
