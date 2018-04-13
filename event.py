@@ -29,6 +29,6 @@ class Event(object):
         print ("\tTemperature threshold {0} exceeded: ({1})".format(Threshold.temperature, data.temperature))
 
 class Threshold(object):
-    gas = 350000
+    gas = 230000
     humidity = 50
     temperature = [22.50, 24]
