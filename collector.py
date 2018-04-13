@@ -69,7 +69,7 @@ try:
         if sensor.get_sensor_data() and sensor.data.heat_stable:
             gas_threshold = [400000, 500000]
             if EVENT:
-                if not (gas_threshold[0] <= gas_resistance <= gas_threshold[1]):
+                if not (gas_threshold[0] <= sensor.data.gas_resistance <= gas_threshold[1]):
                     event.triger(sensor.data, etype.GAS)
 
             # gas = sensor.data.gas_resistance
