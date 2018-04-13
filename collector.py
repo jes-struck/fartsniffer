@@ -70,7 +70,7 @@ try:
             gas_threshold = [400000, 500000]
             if EVENT:
                 if not (gas_threshold[0] <= sensor.data.gas_resistance <= gas_threshold[1]):
-                    event.triger(sensor.data, etype.GAS)
+                    event.trigger(sensor.data, etype.GAS)
 
             # gas = sensor.data.gas_resistance
             # gas_offset = gas_baseline - gas
