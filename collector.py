@@ -78,33 +78,7 @@ try:
                 if (sensor.data.humidity >= threshold.humidity):
                     event.trigger(sensor.data, etype.HUMIDITY)
                 if(sensor.data.temperature > threshold.temperature ):
-                    event.trigger(sensor.data, etype.TEMPERATURE):
-
-
-            # gas = sensor.data.gas_resistance
-            # gas_offset = gas_baseline - gas
-            #
-            # hum = sensor.data.humidity
-            # hum_offset = hum - hum_baseline
-            #
-            # # Calculate hum_score as the distance from the hum_baseline.
-            # if hum_offset > 0:
-            #     hum_score = (100 - hum_baseline - hum_offset) / (100 - hum_baseline) * (hum_weighting * 100)
-            #
-            # else:
-            #     hum_score = (hum_baseline + hum_offset) / hum_baseline * (hum_weighting * 100)
-            #
-            # # Calculate gas_score as the distance from the gas_baseline.
-            # if gas_offset > 0:
-            #     gas_score = (gas / gas_baseline) * (100 - (hum_weighting * 100))
-            #
-            # else:
-            #     gas_score = 100 - (hum_weighting * 100)
-            #
-            # # Calculate air_quality_score.
-            # air_quality_score = hum_score + gas_score
-            #
-            # print("Gas: {0:.2f} Ohms,humidity: {1:.2f} %RH,air quality: {2:.2f}".format(gas, hum, air_quality_score))
+                    event.trigger(sensor.data, etype.TEMPERATURE)
             time.sleep(1)
 
 except KeyboardInterrupt:
