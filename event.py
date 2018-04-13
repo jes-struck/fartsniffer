@@ -1,4 +1,4 @@
-
+from enum import Enum
 class EventType(Enum):
      GAS = 1
      HUMIDITY = 2
