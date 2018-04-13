@@ -36,10 +36,8 @@ sensor.select_gas_heater_profile(0)
 
 start_time = time.time()
 curr_time = time.time()
-if (DEBUG):
-    burn_in_time=20
-else:
-    burn_in_time = 300
+burn_in_time=20
+#burn_in_time = 300
 client = HttpClient(host='localhost', port='8186')
 tags={'server_name': os.getenv('HOSTNAME')}
 burn_in_data = []
