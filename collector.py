@@ -40,7 +40,8 @@ if (DEBUG):
     burn_in_time=20
 else:
     burn_in_time = 300
-
+client = HttpClient(host='localhost', port='8186')
+tags={'server_name': os.getenv('HOSTNAME')}
 burn_in_data = []
 
 try:

@@ -8,9 +8,6 @@ class EventType(Enum):
      TEMPERATURE = 4
 
 class Event(object):
-    client = HttpClient(host='localhost', port='8186')
-
-    tags={'server_name': os.getenv('HOSTNAME')}
     def trigger(self, data, type):
         if type == EventType.GAS:
             self._trigger_gas_event(data)
