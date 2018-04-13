@@ -36,6 +36,6 @@ class Event(object):
         print()
 
 class Threshold(object):
-    gas_threshold = 350000
-    humidity_threshold = 50
-    temperature_threshold = 24
+    gas = 350000
+    humidity = 50
+    temperature = 24
