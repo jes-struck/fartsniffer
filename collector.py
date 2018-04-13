@@ -11,7 +11,7 @@ Press Ctrl+C to exit
 """)
 
 sensor = bme680.BME680()
-DEBUG=True
+DEBUG=False
 # These oversampling settings can be tweaked to
 # change the balance between accuracy and noise in
 # the data.
