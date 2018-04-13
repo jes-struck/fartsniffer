@@ -17,19 +17,19 @@ class Event(object):
         elif type == EventType.PRESSURE:
             return
 
-    def _trigger_gas_event(data):
+    def _trigger_gas_event(self, data):
         print ("\tGetting gas_resistance: ({0})".format(data.gas_resistance))
         print()
         print("DONE...")
         print()
 
-    def _trigger_hum_event(data):
+    def _trigger_hum_event(self, data):
         print ("\tGetting humidity: ({0})".format(data.humidity))
         print()
         print("DONE...")
         print()
 
-    def _trigger_temp_event(data):
+    def _trigger_temp_event(self, data):
         print ("\tGetting temperature: ({0})".format(data.temperature))
         print()
         print("DONE...")
