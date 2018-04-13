@@ -2,7 +2,7 @@
 
 import bme680
 import time
-from event import Event as event
+from event import Event
 from event import EventType as etype
 from event import Threshold as threshold
 
@@ -16,6 +16,7 @@ Press Ctrl+C to exit
 sensor = bme680.BME680()
 DEBUG=True
 EVENT=True
+event = Event()
 # These oversampling settings can be tweaked to
 # change the balance between accuracy and noise in
 # the data.

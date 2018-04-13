@@ -7,13 +7,13 @@ class EventType(Enum):
 
 class Event(object):
 
-    def trigger(data, type):
+    def trigger(self, data, type):
         if type == EventType.GAS:
-            _trigger_gas_event(data)
+            self._trigger_gas_event(data)
         elif type == EventType.HUMIDITY:
-            _trigger_hum_event(data)
+            self._trigger_hum_event(data)
         elif type == EventType.TEMPERATURE:
-            _trigger_temp_event(data)
+            self._trigger_temp_event(data)
         elif type == EventType.PRESSURE:
             return
 
