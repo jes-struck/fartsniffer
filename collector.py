@@ -68,7 +68,7 @@ try:
     print("Gas baseline: {0} Ohms, humidity baseline: {1:.2f} %RH\n".format(gas_baseline, hum_baseline))
 
     while True:
-        if sensor.get_sensor_data() and sensor.data.heat_stable
+        if sensor.get_sensor_data() and sensor.data.heat_stable:
             client.metrics('gas', {'threshold': Threshold.gas, 'measure': sensor.data.gas_resistance}, tags=tags )
             client.metrics('humidity', {'threshold': Threshold.humidity, 'measure': sensor.data.humidity}, tags=tags )
             client.metrics('temperature', {'threshold': Threshold.temperature, 'measure': sensor.data.temperature}, tags=tags )
