@@ -4,6 +4,7 @@ import bme680
 import time
 from event import Event as event
 from event import EventType as etype
+from event import Threshold as threshold
 
 print("""Estimate indoor air quality
 Runs the sensor for a burn-in period, then uses a
@@ -68,9 +69,17 @@ try:
     while True:
         if sensor.get_sensor_data() and sensor.data.heat_stable:
             gas_threshold = [400000, 500000]
+            humidity_threshold = 50
+            temperature_threshold
+
             if EVENT:
-                if not (gas_threshold[0] <= sensor.data.gas_resistance <= gas_threshold[1]):
+                if not (threshold.gas[0] <= sensor.data.gas_resistance <= threshold.gas[1]):
                     event.trigger(sensor.data, etype.GAS)
+                if (sensor.data.humidity >= threshold.humidity):
+                    event.trigger(sensor.data, etype.HUMIDITY)
+                if(sensor.data.temperature > threshold.temperature ):
+                    event.trigger(sensor.data, etype.TEMPERATURE):
+
 
             # gas = sensor.data.gas_resistance
             # gas_offset = gas_baseline - gas
