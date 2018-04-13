@@ -1,4 +1,6 @@
 from enum import Enum
+
+
 class EventType(Enum):
      GAS = 1
      HUMIDITY = 2
@@ -6,7 +8,9 @@ class EventType(Enum):
      TEMPERATURE = 4
 
 class Event(object):
+    client = HttpClient(host='localhost', port='8186')
 
+    tags={'server_name': os.getenv('HOSTNAME')}
     def trigger(self, data, type):
         if type == EventType.GAS:
             self._trigger_gas_event(data)
@@ -18,6 +22,7 @@ class Event(object):
             return
 
     def _trigger_gas_event(self, data):
+
         print ("\tGas threshold {0} exceeded: ({1:.2f})".format(Threshold.gas, data.gas_resistance))
 
     def _trigger_hum_event(self, data):

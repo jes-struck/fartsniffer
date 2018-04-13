@@ -5,6 +5,8 @@ import time
 from event import Event
 from event import EventType as etype
 from event import Threshold as threshold
+from telegraf import HttpClient
+import os
 
 print("""Estimate indoor air quality
 Runs the sensor for a burn-in period, then uses a
@@ -14,8 +16,6 @@ Press Ctrl+C to exit
 """)
 
 sensor = bme680.BME680()
-DEBUG=True
-EVENT=True
 event = Event()
 # These oversampling settings can be tweaked to
 # change the balance between accuracy and noise in
@@ -68,22 +68,20 @@ try:
     print("Gas baseline: {0} Ohms, humidity baseline: {1:.2f} %RH\n".format(gas_baseline, hum_baseline))
 
     while True:
-        if sensor.get_sensor_data() and sensor.data.heat_stable:
-            if EVENT:
-                if(DEBUG):
-                    print("[DEBUG] gas: {0} ".format(sensor.data.gas_resistance))
-                    print("[DEBUG] humidity: {0} ".format(sensor.data.humidity))
-                    print("[DEBUG] temp: {0} ".format(sensor.data.temperature))
-                if (sensor.data.gas_resistance >= threshold.gas):
-                    event.trigger(sensor.data, etype.GAS)
-                if (sensor.data.humidity >= threshold.humidity):
-                    event.trigger(sensor.data, etype.HUMIDITY)
-                if not (threshold.temperature[0] <= sensor.data.temperature <= threshold.temperature[1]):
-                    event.trigger(sensor.data, etype.TEMPERATURE)
+        if sensor.get_sensor_data() and sensor.data.heat_stable
+            client.metrics('gas', {'threshold': Threshold.gas, 'measure': sensor.data.gas_resistance}, tags=tags )
+            client.metrics('humidity', {'threshold': Threshold.humidity, 'measure': sensor.data.humidity}, tags=tags )
+            client.metrics('temperature', {'threshold': Threshold.temperature, 'measure': sensor.data.temperature}, tags=tags )
+            if (sensor.data.gas_resistance >= threshold.gas):
+                event.trigger(sensor.data, etype.GAS)
+            if (sensor.data.humidity >= threshold.humidity):
+                event.trigger(sensor.data, etype.HUMIDITY)
+            if not (threshold.temperature[0] <= sensor.data.temperature <= threshold.temperature[1]):
+                event.trigger(sensor.data, etype.TEMPERATURE)
 
-                print()
-                print("DONE...")
-                print()
+            print()
+            print("DONE...")
+            print()
             time.sleep(1)
 
 except KeyboardInterrupt:
