@@ -20,13 +20,13 @@ class Event(object):
 
     def _trigger_gas_event(self, data):
 
-        print ("\tGas threshold {0} exceeded: ({1:.2f})".format(Threshold.gas, data.gas_resistance))
+        print ("\tGas threshold {0} exceeded: ({1:.2f})".format(Threshold.gas, data.gas_resistance))
 
     def _trigger_hum_event(self, data):
         print ("\tHumidity threshold {0} exceeded: ({1:.2f})".format(Threshold.humidity, data.humidity))
 
     def _trigger_temp_event(self, data):
-        print ("\tTemperature threshold {0} exceeded: ({1})".format(Threshold.temperature, data.temperature))
+        print ("\tTemperature threshold {0} exceeded: ({1:.2f})".format(Threshold.temperature, data.temperature))
 
 class Threshold(object):
     gas = 230000

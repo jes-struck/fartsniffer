@@ -37,7 +37,7 @@ sensor.select_gas_heater_profile(0)
 
 start_time = time.time()
 curr_time = time.time()
-burn_in_time=20
+burn_in_time=10
 #burn_in_time = 300
 client = HttpClient(host='localhost', port='8186')
 tags={'server_name': os.getenv('HOSTNAME')}
@@ -69,7 +69,7 @@ try:
 
     while True:
         if sensor.get_sensor_data() and sensor.data.heat_stable:
-            client.metric('gas', sensor.data.gas_resistance, tags=tags )
+            client.metric('gas', int(sensor.data.gas_resistance)), tags=tags )
             client.metric('humidity', sensor.data.humidity, tags=tags )
             client.metric('temperature', sensor.data.temperature, tags=tags )
             if (sensor.data.gas_resistance >= threshold.gas):
@@ -78,10 +78,8 @@ try:
                 event.trigger(sensor.data, etype.HUMIDITY)
             if not (threshold.temperature[0] <= sensor.data.temperature <= threshold.temperature[1]):
                 event.trigger(sensor.data, etype.TEMPERATURE)
+            print("DONE...\n")
 
-            print()
-            print("DONE...")
-            print()
             time.sleep(1)
 
 except KeyboardInterrupt:
